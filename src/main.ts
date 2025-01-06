@@ -1,9 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { PORT } from './config/envs';
-console.log(PORT);
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { LoggerMwGlobal } from './Middleware/Logger.middleware';
+import { LoggerMwGlobal } from './Middleware/Logger.Middleware';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { Product } from './Products/Product.entity';
@@ -11,8 +10,6 @@ import { User } from './Users/User.entity';
 import { Order } from './Orders/Order.entity';
 import { OrderDetail } from './Orders/OrderDetail.entity';
 import { Category } from './Categories/Category.entity';
-
-
 
 async function bootstrap() {
   const app: INestApplication<any> = await NestFactory.create(AppModule);

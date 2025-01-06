@@ -6,7 +6,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './Auth/guard/auth.guard';
 import { ConfigModuleG } from './config.module';
 import { CategoriesModule } from './Categories/categories.module';
-import { SeederModule } from './seeder/seeder.module';
+import { SeederModule } from './Seeder/Seeder.module';
 import { OrderModule } from './Orders/order.module';
 import { CloudinaryModule } from './Cloudinary/cloudinary.module';
 import { JWTModule } from './JWT.module';

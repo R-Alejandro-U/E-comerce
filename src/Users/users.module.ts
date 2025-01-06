@@ -1,7 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserController } from './users.controller';
-import { LoggerMw } from 'src/Middleware/Logger.middleware';
+import { LoggerMw } from 'src/Middleware/Logger.Middleware';
 import { UsersRepository } from './users.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/Users/User.entity';
