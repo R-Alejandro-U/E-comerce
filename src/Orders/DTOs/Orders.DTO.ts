@@ -97,7 +97,7 @@ export class GetOrderResponseDTO {
     description: 'UUID del usuario que realizó el pedido',
     example: 'eefdd1fd-dffa-4cef-aedb-80e150f6b8ae'
   })
-  userId: string;
+  user: string;
 
   @ApiProperty({
     type: OrderDetail,

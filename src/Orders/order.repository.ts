@@ -88,7 +88,7 @@ export class OrderRepository {
       
       const order: GetOrderResponseDTO = {
         ...getOrder,
-        userId: getOrder.user.id,
+        user: getOrder.user.id,
       } 
       return order;
     } catch (error) {
