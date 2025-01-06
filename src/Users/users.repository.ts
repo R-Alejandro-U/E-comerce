@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { BadRequestException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { UserDTO, UserDTOResponse, UserUpdateDTO } from './DTOs/Users.DTOs';
@@ -90,6 +91,8 @@ export class UsersRepository {
 
   async deleteUser(id: string): Promise<string> {
     try {
+      const userMain: User | null = await this.getIdByEmail(main.email)
+      if(id === userMain.id) throw new BadRequestException('No puedes eliminar al usuario main, por defecto.')
       await this.userRepository.delete({ id });
       return id;
     } catch (error) {

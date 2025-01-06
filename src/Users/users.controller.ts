@@ -15,7 +15,6 @@ import {
 import { UsersService } from './users.service';
 import {
   GetUserDTOResponse,
-  UserDTOResponse,
   UserDTOResponse3,
   UserUpdateDTO,
 } from './DTOs/Users.DTOs';
