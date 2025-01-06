@@ -28,4 +28,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/e_comerce_m4:latest
-          debug: true
