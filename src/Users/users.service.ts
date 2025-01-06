@@ -1,16 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
-import { UsersRepository } from './users.repository';
-import {
-  GetUserDTOResponse,
-  UserDTOResponse,
-  UserDTOResponse2,
-  UserDTOResponse3,
-  UserOrderDTO,
-  UserUpdateDTO,
-} from './DTOs/Users.DTOs';
-import { User } from 'src/Users/User.entity';
+
+import { Injectable } from "@nestjs/common";
+import { UsersRepository } from "./users.repository";
+import { GetUserDTOResponse, UserDTOResponse, UserDTOResponse2, UserDTOResponse3, UserOrderDTO, UserUpdateDTO } from "./DTOs/Users.DTOs";
+import { User } from "./User.entity";
+
 
 @Injectable()
 export class UsersService {

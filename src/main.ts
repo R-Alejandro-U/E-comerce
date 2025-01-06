@@ -1,15 +1,17 @@
 /* eslint-disable prettier/prettier */
-import { PORT } from './config/envs';
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { LoggerMwGlobal } from './Middleware/Logger.Middleware';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
-import { Product } from './Products/Product.entity';
-import { User } from './Users/User.entity';
-import { Order } from './Orders/Order.entity';
-import { OrderDetail } from './Orders/OrderDetail.entity';
-import { Category } from './Categories/Category.entity';
+
+import { INestApplication, ValidationPipe } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+import { LoggerMwGlobal } from "./Middleware/logger.middleware";
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from "@nestjs/swagger";
+import { Product } from "./Products/Product.entity";
+import { User } from "./Users/User.entity";
+import { Order } from "./Orders/Order.entity";
+import { OrderDetail } from "./Orders/OrderDetail.entity";
+import { Category } from "./Categories/Category.entity";
+import { PORT } from "./config/envs";
+
 
 async function bootstrap() {
   const app: INestApplication<any> = await NestFactory.create(AppModule);

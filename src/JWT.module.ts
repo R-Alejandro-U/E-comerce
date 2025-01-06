@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { SECRET_WORD } from './config/envs';
+import { Module } from '@nestjs/common';
 
 @Module({
   imports: [

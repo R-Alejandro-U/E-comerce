@@ -1,11 +1,13 @@
 /* eslint-disable prettier/prettier */
 // src/seeder/seeder.module.ts
-import { Module, OnApplicationBootstrap } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Product } from '../Products/Product.entity';
-import { Seeder } from './SeederDB.service';
-import { Category } from 'src/Categories/Category.entity';
-import { UserModule } from 'src/Users/users.module';
+
+import { Module, OnApplicationBootstrap } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { Category } from "src/Categories/Category.entity";
+import { Product } from "src/Products/Product.entity";
+import { UserModule } from "src/Users/users.module";
+import { Seeder } from "./SeederDB.service";
+
 
 @Module({
   imports: [TypeOrmModule.forFeature([Category, Product]), UserModule],
