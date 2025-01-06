@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
+import { PORT } from './config/envs';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { LoggerMwGlobal } from './Middleware/Logger.middleware';
-import { PORT } from './config/envs';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { Product } from './Products/Product.entity';
