@@ -1,12 +1,11 @@
-/* eslint-disable prettier/prettier */
-import { HttpException, Injectable } from '@nestjs/common';
-import { DataSource } from 'typeorm';
-import { Product } from '../Products/Product.entity';
-import { example } from '../Products';
-import { Category } from 'src/Categories/Category.entity';
-import { UsersRepository } from 'src/Users/users.repository';
-import { main } from 'src/userMain';
-import { User } from 'src/Users/User.entity';
+import { HttpException, Injectable } from "@nestjs/common";
+import { Category } from "src/Categories/Category.entity";
+import { example } from "src/Products";
+import { Product } from "src/Products/Product.entity";
+import { main } from "src/userMain";
+import { User } from "src/Users/User.entity";
+import { UsersRepository } from "src/Users/users.repository";
+import { DataSource } from "typeorm";
 
 @Injectable()
 export class Seeder {
