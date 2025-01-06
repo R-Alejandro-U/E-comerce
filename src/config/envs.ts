@@ -1,6 +1,4 @@
-import { config as dotenvConfig } from 'dotenv';
-
-dotenvConfig({ path: '.env' });
+import 'dotenv/config';
 
 const data = process.env;
 

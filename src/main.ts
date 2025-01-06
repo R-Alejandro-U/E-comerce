@@ -11,7 +11,7 @@ import { Order } from "./Orders/Order.entity";
 import { OrderDetail } from "./Orders/OrderDetail.entity";
 import { Category } from "./Categories/Category.entity";
 import { PORT } from "./config/envs";
-
+import 'dotenv/config';
 
 async function bootstrap() {
   const app: INestApplication<any> = await NestFactory.create(AppModule);
@@ -38,7 +38,9 @@ async function bootstrap() {
   const document: OpenAPIObject = SwaggerModule.createDocument(app, swaggerConfig, {extraModels: [Product, User, Order, OrderDetail, Category]});
   SwaggerModule.setup("e-comerce", app, document);
   
-  await app.listen(PORT ?? 3000, () =>
+    const port = process.env.PORT
+
+  await app.listen(port, () =>
     console.log(`Server is listening on port ${PORT}`),
   );
   
