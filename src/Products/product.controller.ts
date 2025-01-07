@@ -55,7 +55,6 @@ async getProductById(
 }
 
 @Post('new-product')
-@SetMetadata('isPublic', true)
 @ApiOperation({
   summary: 'Crear un nuevo producto',
   description: 'Este endpoint permite crear un nuevo producto. El cuerpo de la solicitud debe contener los detalles del nuevo producto a crear.',
@@ -67,7 +66,6 @@ async createProduct(@Body() data: ProductDTO): Promise<string> {
 }
 
 @Delete(':id')
-@SetMetadata('isPublic', true)
 @ApiOperation({
   summary: 'Eliminar producto por ID',
   description: 'Este endpoint permite eliminar un producto específico utilizando su ID. El ID debe ser un UUID válido.',
