@@ -13,6 +13,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/Users/User.entity';
 import { Repository } from 'typeorm';
 import { main } from 'src/userMain';
+import { AssignAdminDTO } from 'src/Auth/DTOs/AuthDTO';
 
 @Injectable()
 export class UsersRepository {
@@ -135,10 +136,12 @@ export class UsersRepository {
     }
   }
 
-  async AssignAdmin(id: string, boolean: boolean): Promise<string> {
+  async AssignAdmin(id: string, data: AssignAdminDTO): Promise<string> {
+    const adminUser: User | null = await this.getIdByEmail(main.email);
+    if(adminUser.id === id) throw new BadRequestException('El usuario precargado main, no se puede editar.');
     const user: User | null = await this.getUserById(id);
-    if(boolean === user.isAdmin) throw new BadRequestException(`El usuario ya es ${boolean ? "administrador." : "un usuario corriente."}`);
-    await this.userRepository.save({...user, isAdmin: boolean});
-    return boolean ? `El usuario ${user.name}, ya es administrador.` : `El usuario ${user.name}, ya no es administrador.`
+    if(data.isAdmin === user.isAdmin) throw new BadRequestException(`El usuario ya es ${data.isAdmin ? "administrador." : "un usuario corriente."}`);
+    await this.userRepository.save({...user, isAdmin: data.isAdmin});
+    return data.isAdmin ? `El usuario ${user.name}, ya es administrador.` : `El usuario ${user.name}, ya no es administrador.`
   }
 }

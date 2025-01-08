@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsNotEmpty } from 'class-validator';
 import { UserDataDTO } from 'src/Users/DTOs/Users.DTOs';
 
 class LoginDTO {
@@ -29,4 +29,15 @@ class AuthResponseDTO {
   token: string;
 }
 
-export { AuthResponseDTO, LoginDTO };
+class AssignAdminDTO {
+
+  @ApiProperty({
+    description: 'El valor de si el usurio va ser o no admin.',
+    example: true
+  })
+  @IsNotEmpty({message: 'Este valor no puedo venir vacio.'})
+  @IsBoolean({message: 'Este valor debe ser un booleano, true o false.'})
+  isAdmin: boolean;
+}
+
+export { AuthResponseDTO, LoginDTO, AssignAdminDTO };

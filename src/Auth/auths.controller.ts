@@ -3,7 +3,7 @@
 import { Body, Controller, Param, ParseUUIDPipe, Post, Put, SetMetadata, UseGuards } from '@nestjs/common';
 import { AuthsService } from './auths.service';
 import { CreateUserDTO, UserDTOResponse } from 'src/Users/DTOs/Users.DTOs';
-import { AuthResponseDTO, LoginDTO } from './DTOs/AuthDTO';
+import { AssignAdminDTO, AuthResponseDTO, LoginDTO } from './DTOs/AuthDTO';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { Roles } from 'src/decorators/role.decorator';
 import { RolesGuard } from './guard/roles.guard';
@@ -36,7 +36,7 @@ export class AuthsController {
     return this.authsService.signup(user);
   }
 
-  @Put('Assign-admin/:id')
+  @Put(':id')
   @Roles(Role.admin)
   @UseGuards(RolesGuard)
   @ApiOperation({
@@ -44,7 +44,10 @@ export class AuthsController {
     description: 'Este endpoint permite darle rol de administrador, a un usuario o quitar se los.'
   })
   @ApiBearerAuth()
-  async AssignAdmin(@Param('id', ParseUUIDPipe) id: string, @Body() boolean: boolean) : Promise<string> {
-    return await this.authsService.AssignAdmin(id, boolean)
+  async AssignAdmin(@Param('id', ParseUUIDPipe) id: string, @Body() data: AssignAdminDTO) : Promise<string> {
+
+    console.log("pepe");
+    
+    return await this.authsService.AssignAdmin(id, data)
   }
 }
