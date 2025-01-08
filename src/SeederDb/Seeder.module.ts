@@ -1,9 +1,9 @@
-import { Module, OnApplicationBootstrap } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { Category } from "src/Categories/Category.entity";
-import { Product } from "src/Products/Product.entity";
-import { UserModule } from "src/Users/users.module";
-import { Seeder } from "./SeederDb.service";
+import { Module, OnApplicationBootstrap } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Category } from 'src/Categories/Category.entity';
+import { Product } from 'src/Products/Product.entity';
+import { UserModule } from 'src/Users/users.module';
+import { Seeder } from './SeederDb.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Category, Product]), UserModule],

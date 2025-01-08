@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Post, SetMetadata } from '@nestjs/common';
+import { Body, Controller, Param, ParseUUIDPipe, Post, Put, SetMetadata, UseGuards } from '@nestjs/common';
 import { AuthsService } from './auths.service';
-import {
-  CreateUserDTO,
-  UserDTOResponse,
-} from 'src/Users/DTOs/Users.DTOs';
+import { CreateUserDTO, UserDTOResponse } from 'src/Users/DTOs/Users.DTOs';
 import { AuthResponseDTO, LoginDTO } from './DTOs/AuthDTO';
 import { ApiOperation } from '@nestjs/swagger';
+import { Roles } from 'src/decorators/role.decorator';
+import { RolesGuard } from './guard/roles.guard';
+import { Role } from 'src/utils/Roles.enum';
 
 @Controller('auth')
 export class AuthsController {
@@ -15,16 +15,35 @@ export class AuthsController {
 
   @Post('signin')
   @SetMetadata('isPublic', true)
-  @ApiOperation({ summary: 'Iniciar sesión de un usuario', description: 'Este endpoint permite que un usuario inicie sesión proporcionando sus credenciales.' })
+  @ApiOperation({
+    summary: 'Iniciar sesión de un usuario',
+    description:
+      'Este endpoint permite que un usuario inicie sesión proporcionando sus credenciales.',
+  })
   login(@Body() cridentials: LoginDTO): Promise<AuthResponseDTO> {
     return this.authsService.login(cridentials);
   }
 
   @Post('signup')
   @SetMetadata('isPublic', true)
-  @ApiOperation({ summary: 'Registrar un nuevo usuario', description: 'Este endpoint permite registrar un nuevo usuario con la información proporcionada.' })
+  @ApiOperation({
+    summary: 'Registrar un nuevo usuario',
+    description:
+      'Este endpoint permite registrar un nuevo usuario con la información proporcionada.',
+  })
   async signup(@Body() data: CreateUserDTO): Promise<UserDTOResponse> {
     const { passwordConfirmation, ...user } = data;
     return this.authsService.signup(user);
+  }
+
+  @Put('Assign-admin/:id')
+  @Roles(Role.admin)
+  @UseGuards(RolesGuard)
+  @ApiOperation({
+    summary: 'Dar o quitar el rol de admin.',
+    description: 'Este endpoint permite darle rol de administrador, a un usuario o quitar se los.'
+  })
+  async AssignAdmin(@Param('id', ParseUUIDPipe) id: string, @Body() boolean: boolean) : Promise<string> {
+    return await this.authsService.AssignAdmin(id, boolean)
   }
 }

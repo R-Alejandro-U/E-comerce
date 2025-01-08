@@ -1,10 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Category } from 'src/Categories/Category.entity';
 

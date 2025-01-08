@@ -18,7 +18,8 @@ import { Category } from 'src/Categories/Category.entity';
 
 class ProductDTO {
   @ApiProperty({
-    description: 'Debe contener un nombre, con un mínimo de 3 caracteres y un máximo de 100.',
+    description:
+      'Debe contener un nombre, con un mínimo de 3 caracteres y un máximo de 100.',
     example: 'Camisa Praga',
   })
   @IsString({ message: 'El nombre debe ser una cadena de texto.' })
@@ -32,7 +33,8 @@ class ProductDTO {
   name: string;
 
   @ApiProperty({
-    description: 'Debe contener una descripción detallada, con un mínimo de 5 caracteres y un máximo de 500.',
+    description:
+      'Debe contener una descripción detallada, con un mínimo de 5 caracteres y un máximo de 500.',
     example: 'Camiseta con diseño exclusivo y materiales de alta calidad.',
   })
   @IsString({ message: 'La descripción debe ser una cadena de texto.' })
@@ -44,7 +46,8 @@ class ProductDTO {
   description: string;
 
   @ApiProperty({
-    description: 'Debe ser un número positivo, mayor a 0 y menor o igual a 999,999,999.',
+    description:
+      'Debe ser un número positivo, mayor a 0 y menor o igual a 999,999,999.',
     example: 49.99,
   })
   @IsNumber({}, { message: 'El precio debe ser un número.' })
@@ -58,7 +61,8 @@ class ProductDTO {
   price: number;
 
   @ApiProperty({
-    description: 'Debe ser un número positivo, con un mínimo de 0 (no negativo).',
+    description:
+      'Debe ser un número positivo, con un mínimo de 0 (no negativo).',
     example: 150,
   })
   @IsNumber({}, { message: 'El stock debe ser un número.' })
@@ -68,16 +72,20 @@ class ProductDTO {
   stock: number;
 
   @ApiProperty({
-    description: 'Debe ser una URL válida para la imagen del producto, en el caso que no se porporcione, tendra una por defecto.',
-    example: 'https://http2.mlstatic.com/D_NQ_NP_976889-MLA77766301521_072024-O.webp',
-    default: 'https://plus.unsplash.com/premium_photo-1733317483746-661d5384329c?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    description:
+      'Debe ser una URL válida para la imagen del producto, en el caso que no se porporcione, tendra una por defecto.',
+    example:
+      'https://http2.mlstatic.com/D_NQ_NP_976889-MLA77766301521_072024-O.webp',
+    default:
+      'https://plus.unsplash.com/premium_photo-1733317483746-661d5384329c?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   })
   @IsUrl({}, { message: 'La URL de la imagen debe ser válida.' })
   @IsNotEmpty({ message: 'El campo URL de la imagen no debe estar vacío.' })
   imgUrl: string;
 
   @ApiProperty({
-    description: 'Debe ser una cadena de texto, con un mínimo de 3 caracteres y un máximo de 50.',
+    description:
+      'Debe ser una cadena de texto, con un mínimo de 3 caracteres y un máximo de 50.',
     example: 'Ropa',
   })
   @IsString({ message: 'La categoría debe ser una cadena de texto.' })
@@ -88,10 +96,9 @@ class ProductDTO {
 }
 
 class ProductDTOResponse {
-
-  @ApiProperty({description: 'Información de la paginación.', type: DataPage,})
+  @ApiProperty({ description: 'Información de la paginación.', type: DataPage })
   dataPage: DataPage;
-  @ApiProperty({description: 'Lista de productos.', type: [Product]})
+  @ApiProperty({ description: 'Lista de productos.', type: [Product] })
   products: Product[];
 }
 
@@ -125,7 +132,8 @@ class ProductUpdateDto {
   @IsNumber({}, { message: 'El stock debe ser un número entero válido.' })
   @Min(0, { message: 'El stock debe ser mayor o igual a 0.' })
   @ApiProperty({
-    description: 'Cantidad de unidades disponibles en stock. Debe ser mayor o igual a 0.',
+    description:
+      'Cantidad de unidades disponibles en stock. Debe ser mayor o igual a 0.',
     example: 150,
   })
   stock?: number;

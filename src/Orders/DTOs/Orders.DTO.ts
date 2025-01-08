@@ -32,7 +32,8 @@ export class OrderDTO {
   userId: string;
 
   @ApiProperty({
-    description: 'Debe ser un arreglo que contenga al menos un producto con su ID.',
+    description:
+      'Debe ser un arreglo que contenga al menos un producto con su ID.',
     example: [
       { id: '550e8400-e29b-41d4-a716-446655440000' },
       { id: '123e4567-e89b-12d3-a456-426614174000' },
@@ -72,11 +73,11 @@ class NewOrder {
     description: 'Detalles del pedido, incluyendo productos, precios y más',
   })
   orderDetail: OrderDetail;
-};
+}
 
 export class OrderResponseDTO {
-  @ApiProperty({type: NewOrder, description: 'Nueva orden.'})
-  newOrder: NewOrder
+  @ApiProperty({ type: NewOrder, description: 'Nueva orden.' })
+  newOrder: NewOrder;
 }
 
 export class GetOrderResponseDTO {
@@ -95,7 +96,7 @@ export class GetOrderResponseDTO {
   @IsUUID()
   @ApiProperty({
     description: 'UUID del usuario que realizó el pedido',
-    example: 'eefdd1fd-dffa-4cef-aedb-80e150f6b8ae'
+    example: 'eefdd1fd-dffa-4cef-aedb-80e150f6b8ae',
   })
   user: string;
 
@@ -105,4 +106,3 @@ export class GetOrderResponseDTO {
   })
   orderDetail: OrderDetail;
 }
-

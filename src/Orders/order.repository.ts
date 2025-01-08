@@ -1,7 +1,11 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { GetOrderResponseDTO, OrderDTO, OrderResponseDTO } from './DTOs/Orders.DTO';
+import {
+  GetOrderResponseDTO,
+  OrderDTO,
+  OrderResponseDTO,
+} from './DTOs/Orders.DTO';
 import { ProductsRepository } from 'src/Products/products.repository';
 import { UsersRepository } from 'src/Users/users.repository';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,10 +28,9 @@ export class OrderRepository {
 
   async AddOrder(order: OrderDTO): Promise<OrderResponseDTO> {
     try {
-      const user: User = await this.userRepository.getUserById(
-        order.userId,
-      );
-      const { password, orders, isAdmin, createUser, updateUser, ...extra } = user;
+      const user: User = await this.userRepository.getUserById(order.userId);
+      const { password, orders, isAdmin, createUser, updateUser, ...extra } =
+        user;
       const products: Product[] = await this.productsRepository.productSelect(
         order.products,
       );
@@ -63,7 +66,7 @@ export class OrderRepository {
     try {
       const price: number = products.reduce(
         (total, suma) => total + parseFloat(suma.price.toString()),
-        0
+        0,
       );
 
       const newOrderDetail: OrderDetail = this.orderDetailsRepository.create({
@@ -84,16 +87,16 @@ export class OrderRepository {
         where: { id },
         relations: ['orderDetail', 'user', 'orderDetail.products'],
       });
-      if(!getOrder) throw new NotFoundException("No existe la orden solicitada.")
-      
+      if (!getOrder)
+        throw new NotFoundException('No existe la orden solicitada.');
+
       const order: GetOrderResponseDTO = {
         ...getOrder,
         user: getOrder.user.id,
-      } 
+      };
       return order;
     } catch (error) {
       throw error;
     }
-    
   }
 }

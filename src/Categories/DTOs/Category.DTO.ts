@@ -8,7 +8,8 @@ export class CategoryDTO {
   @MinLength(2, { message: 'Debe tener al menos 2 letras.' })
   @MaxLength(50, { message: 'El máximo de caracteres es de 50.' })
   @ApiProperty({
-    description: 'Debe contener el nombre de la categoría, con un mínimo de 2 caracteres y un máximo de 50.',
+    description:
+      'Debe contener el nombre de la categoría, con un mínimo de 2 caracteres y un máximo de 50.',
     example: 'Pc',
   })
   name: string;

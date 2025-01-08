@@ -39,7 +39,7 @@ export class User {
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
 
-  @Column({type: 'boolean', default: false, nullable: true})
+  @Column({ type: 'boolean', default: false, nullable: true })
   isAdmin?: boolean;
 
   @CreateDateColumn()

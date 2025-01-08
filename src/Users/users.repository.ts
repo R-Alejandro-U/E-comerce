@@ -1,6 +1,11 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { BadRequestException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserDTO, UserDTOResponse, UserUpdateDTO } from './DTOs/Users.DTOs';
 import * as bcrypt from 'bcrypt';
 import { SALT } from 'src/config/envs';
@@ -11,6 +16,7 @@ import { main } from 'src/userMain';
 
 @Injectable()
 export class UsersRepository {
+  
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
@@ -24,7 +30,6 @@ export class UsersRepository {
   }
 
   async getUserById(id: string): Promise<User> {
-    
     try {
       const user: User | null = await this.userRepository.findOne({
         where: { id },
@@ -82,7 +87,8 @@ export class UsersRepository {
       };
       const user: User = this.userRepository.create(newUser);
       await this.userRepository.save(user);
-      const { password, isAdmin, createUser, updateUser, ...userPartial } = user;
+      const { password, isAdmin, createUser, updateUser, ...userPartial } =
+        user;
       return userPartial;
     } catch (error) {
       throw new HttpException({ message: error.detail, status: 409 }, 409);
@@ -91,8 +97,11 @@ export class UsersRepository {
 
   async deleteUser(id: string): Promise<string> {
     try {
-      const userMain: User | null = await this.getIdByEmail(main.email)
-      if(id === userMain.id) throw new BadRequestException('No puedes eliminar al usuario main, por defecto.')
+      const userMain: User | null = await this.getIdByEmail(main.email);
+      if (id === userMain.id)
+        throw new BadRequestException(
+          'No puedes eliminar al usuario main, por defecto.',
+        );
       await this.userRepository.delete({ id });
       return id;
     } catch (error) {
@@ -103,11 +112,17 @@ export class UsersRepository {
 
   async editUser(id: string, user: Partial<UserUpdateDTO>): Promise<string> {
     try {
-      const oldUser: User | null = await this.userRepository.findOneBy({id});
-      if(!oldUser) throw new BadRequestException('Hubo un error al encontrar al usuario.')
-      const userMain: User | null = await this.userRepository.findOneBy({name: main.name})
-      if(oldUser.id === userMain?.id) throw new BadRequestException('El usuario precargado main no puede ser modificado.')
-      if(user.password) user.password = await this.hashPassword(user.password);
+      const oldUser: User | null = await this.userRepository.findOneBy({ id });
+      if (!oldUser)
+        throw new BadRequestException('Hubo un error al encontrar al usuario.');
+      const userMain: User | null = await this.userRepository.findOneBy({
+        name: main.name,
+      });
+      if (oldUser.id === userMain?.id)
+        throw new BadRequestException(
+          'El usuario precargado main no puede ser modificado.',
+        );
+      if (user.password) user.password = await this.hashPassword(user.password);
       const updateUser: Partial<User> = {
         ...oldUser,
         ...user,
@@ -118,5 +133,12 @@ export class UsersRepository {
       console.error(error);
       throw error;
     }
+  }
+
+  async AssignAdmin(id: string, boolean: boolean): Promise<string> {
+    const user: User | null = await this.getUserById(id);
+    if(boolean === user.isAdmin) throw new BadRequestException(`El usuario ya es ${boolean ? "administrador." : "un usuario corriente."}`);
+    await this.userRepository.save({...user, isAdmin: boolean});
+    return boolean ? `El usuario ${user.name}, ya es administrador.` : `El usuario ${user.name}, ya no es administrador.`
   }
 }

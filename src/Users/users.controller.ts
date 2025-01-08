@@ -27,63 +27,66 @@ import { IdDTO } from 'src/utils/GlobalDTO/Global.DTO';
 export class UserController {
   constructor(private readonly usersService: UsersService) {}
 
-@Get()
-@Roles(Role.admin)
-@UseGuards(RolesGuard)
-@UsePipes(new ValidationPipe({ transform: true }))
-@ApiOperation({
-  summary: 'Obtener todos los usuarios',
-  description: 'Este endpoint permite obtener todos los usuarios con paginación. El número de página y el límite de usuarios por página pueden ser configurados mediante parámetros de consulta.',
-})
-@ApiBearerAuth()
-async getAllUsers(
-  @Query('page') page: number = 1,
-  @Query('limit') limit: number = 5,
-): Promise<GetUserDTOResponse> {
-  if(isNaN(page) || page <= 0) page = 1
-  if(isNaN(limit) || limit <= 0) limit = 5
-  return this.usersService.getAllUsers(page, limit);
-}
+  @Get()
+  @Roles(Role.admin)
+  @UseGuards(RolesGuard)
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @ApiOperation({
+    summary: 'Obtener todos los usuarios',
+    description:
+      'Este endpoint permite obtener todos los usuarios con paginación. El número de página y el límite de usuarios por página pueden ser configurados mediante parámetros de consulta.',
+  })
+  @ApiBearerAuth()
+  async getAllUsers(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 5,
+  ): Promise<GetUserDTOResponse> {
+    if (isNaN(page) || page <= 0) page = 1;
+    if (isNaN(limit) || limit <= 0) limit = 5;
+    return this.usersService.getAllUsers(page, limit);
+  }
 
-@Get(':id')
-@ApiOperation({
-  summary: 'Obtener usuario por ID',
-  description: 'Este endpoint permite obtener los detalles de un usuario específico utilizando su ID. El ID debe ser un UUID válido.',
-})
-@ApiBearerAuth()
-async getUserById(
-  @Param('id', ParseUUIDPipe) id: string,
-): Promise<UserDTOResponse3> {
-  return this.usersService.getUserById(id);
-}
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Obtener usuario por ID',
+    description:
+      'Este endpoint permite obtener los detalles de un usuario específico utilizando su ID. El ID debe ser un UUID válido.',
+  })
+  @ApiBearerAuth()
+  async getUserById(
+    @Param('id', ParseUUIDPipe) id: string,
+  ): Promise<UserDTOResponse3> {
+    return this.usersService.getUserById(id);
+  }
 
-@Delete(':id')
-@ApiOperation({
-  summary: 'Eliminar usuario por ID',
-  description: 'Este endpoint permite eliminar un usuario específico utilizando su ID. El ID debe ser un UUID válido.',
-})
-@ApiResponse({
-  type: IdDTO,
-})
-@ApiBearerAuth()
-async deleteUser(@Param('id', ParseUUIDPipe) id: string): Promise<string> {
-  return this.usersService.deleteUser(id);
-}
+  @Delete(':id')
+  @ApiOperation({
+    summary: 'Eliminar usuario por ID',
+    description:
+      'Este endpoint permite eliminar un usuario específico utilizando su ID. El ID debe ser un UUID válido.',
+  })
+  @ApiResponse({
+    type: IdDTO,
+  })
+  @ApiBearerAuth()
+  async deleteUser(@Param('id', ParseUUIDPipe) id: string): Promise<string> {
+    return this.usersService.deleteUser(id);
+  }
 
-@Put(':id')
-@ApiOperation({
-  summary: 'Editar usuario por ID',
-  description: 'Este endpoint permite editar los detalles de un usuario específico utilizando su ID. El ID debe ser un UUID válido y el cuerpo de la solicitud debe contener los datos actualizados del usuario.',
-})
-@ApiResponse({
-  type: IdDTO,
-})
-@ApiBearerAuth()
-async editUser(
-  @Param('id', ParseUUIDPipe) id: string,
-  @Body() user: Partial<UserUpdateDTO>,
-): Promise<string> {
-  return this.usersService.editUser(id, user);
-}
-
+  @Put(':id')
+  @ApiOperation({
+    summary: 'Editar usuario por ID',
+    description:
+      'Este endpoint permite editar los detalles de un usuario específico utilizando su ID. El ID debe ser un UUID válido y el cuerpo de la solicitud debe contener los datos actualizados del usuario.',
+  })
+  @ApiResponse({
+    type: IdDTO,
+  })
+  @ApiBearerAuth()
+  async editUser(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() user: Partial<UserUpdateDTO>,
+  ): Promise<string> {
+    return this.usersService.editUser(id, user);
+  }
 }

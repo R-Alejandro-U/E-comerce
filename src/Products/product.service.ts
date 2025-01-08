@@ -1,7 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { ProductsRepository } from './products.repository';
-import { ProductDTO, ProductDTOResponse, ProductUpdateDto } from './DTOs/ProductDTO';
+import {
+  ProductDTO,
+  ProductDTOResponse,
+  ProductUpdateDto,
+} from './DTOs/ProductDTO';
 import { Product } from 'src/Products/Product.entity';
 
 @Injectable()

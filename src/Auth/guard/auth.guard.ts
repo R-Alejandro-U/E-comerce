@@ -17,9 +17,7 @@ export class AuthGuard implements CanActivate {
     private readonly jwtService: JwtService,
   ) {}
 
-  async canActivate(
-    context: ExecutionContext,
-  ): Promise<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const isPublic = this.reflector.get<boolean>(
       'isPublic',
       context.getHandler(),
@@ -28,16 +26,18 @@ export class AuthGuard implements CanActivate {
 
     const req = context.switchToHttp().getRequest();
     const authHeader = req.headers['authorization'];
-    if(!authHeader) return false;
-    if (!authHeader.startsWith('Bearer ')) throw new UnauthorizedException('Formato de autorización inválido.');
+    if (!authHeader) return false;
+    if (!authHeader.startsWith('Bearer '))
+      throw new UnauthorizedException('Formato de autorización inválido.');
     const token: string = authHeader.split(' ')[1];
-    if (!token) throw new UnauthorizedException('Falta el token de autorización.');
+    if (!token)
+      throw new UnauthorizedException('Falta el token de autorización.');
 
     try {
       const secret: string | undefined = SECRET_WORD;
       const payload = await this.jwtService.verifyAsync(token, { secret });
-      
-      if(payload.isAdmin) payload.roles = [Role.admin];
+
+      if (payload.isAdmin) payload.roles = [Role.admin];
       else payload.roles = [Role.user];
 
       req.access = {

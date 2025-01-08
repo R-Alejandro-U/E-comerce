@@ -4,7 +4,7 @@ import { ProductDTO, ProductUpdateDto } from './DTOs/ProductDTO';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from 'src/Products/Product.entity';
-import { Category } from 'src/Categories/Category.entity'; 
+import { Category } from 'src/Categories/Category.entity';
 import { ProductIdDTO } from 'src/Orders/DTOs/Orders.DTO';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class ProductsRepository {
 
   async getProducts(): Promise<Product[]> {
     try {
-      return await this.productRepository.find({relations: ['category']});
+      return await this.productRepository.find({ relations: ['category'] });
     } catch (error) {
       throw error;
     }
@@ -68,7 +68,9 @@ export class ProductsRepository {
   async editProduct(id: string, product: ProductUpdateDto): Promise<Product> {
     try {
       const oldProduct: Product = await this.getProductById(id);
-      const category: Category | null = await this.CategoryRepository.findOneBy({name: product.category});
+      const category: Category | null = await this.CategoryRepository.findOneBy(
+        { name: product.category },
+      );
       const updateProduct: Product = {
         ...oldProduct,
         ...product,
@@ -81,7 +83,7 @@ export class ProductsRepository {
     }
   }
 
-  async  productSelect(productId: ProductIdDTO[]): Promise<Product[]> {
+  async productSelect(productId: ProductIdDTO[]): Promise<Product[]> {
     try {
       const products: (null | Product)[] = await Promise.all(
         Array.from(new Set(productId)).map(async (id) => {

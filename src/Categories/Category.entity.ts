@@ -1,13 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Product } from 'src/Products/Product.entity';
-import {
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-
 
 @Entity({ name: 'categories' })
 export class Category {

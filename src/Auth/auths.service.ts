@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { BadRequestException, Injectable } from '@nestjs/common';
-import  { LoginDTO, AuthResponseDTO } from './DTOs/AuthDTO';
+import { LoginDTO, AuthResponseDTO } from './DTOs/AuthDTO';
 import { UsersRepository } from 'src/Users/users.repository';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/Users/User.entity';
@@ -58,5 +58,9 @@ export class AuthsService {
 
   async signup(data: UserDTO): Promise<UserDTOResponse> {
     return await this.usersRepository.registerUser(data);
+  }
+  
+  async AssignAdmin(id: string, boolean: boolean): Promise<string> {
+    return await this.usersRepository.AssignAdmin(id, boolean);
   }
 }

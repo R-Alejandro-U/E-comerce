@@ -1,7 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { OrderService } from './order.service';
-import { GetOrderResponseDTO, OrderDTO, OrderResponseDTO } from './DTOs/Orders.DTO';
+import {
+  GetOrderResponseDTO,
+  OrderDTO,
+  OrderResponseDTO,
+} from './DTOs/Orders.DTO';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 
 @Controller('orders')
@@ -29,5 +33,4 @@ export class OrderController {
   async getOrderById(@Param('id') id: string): Promise<GetOrderResponseDTO> {
     return this.orderService.getOrderById(id);
   }
-
 }

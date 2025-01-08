@@ -1,6 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { GetOrderResponseDTO, OrderDTO, OrderResponseDTO } from './DTOs/Orders.DTO';
+import {
+  GetOrderResponseDTO,
+  OrderDTO,
+  OrderResponseDTO,
+} from './DTOs/Orders.DTO';
 import { OrderRepository } from './order.repository';
 
 @Injectable()

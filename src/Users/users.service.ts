@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 
-import { Injectable } from "@nestjs/common";
-import { UsersRepository } from "./users.repository";
-import { GetUserDTOResponse, UserDTOResponse, UserDTOResponse2, UserDTOResponse3, UserOrderDTO, UserUpdateDTO } from "./DTOs/Users.DTOs";
-import { User } from "./User.entity";
-
+import { Injectable } from '@nestjs/common';
+import { UsersRepository } from './users.repository';
+import {
+  GetUserDTOResponse,
+  UserDTOResponse,
+  UserDTOResponse2,
+  UserDTOResponse3,
+  UserOrderDTO,
+  UserUpdateDTO,
+} from './DTOs/Users.DTOs';
+import { User } from './User.entity';
 
 @Injectable()
 export class UsersService {
@@ -30,7 +36,7 @@ export class UsersService {
         phone: user.phone,
         country: user.country,
         city: user.city,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
       }),
     );
 
@@ -48,11 +54,12 @@ export class UsersService {
   async getUserById(id: string): Promise<UserDTOResponse3> {
     const user: User = await this.usersRepository.getUserById(id);
     const { password, isAdmin, createUser, updateUser, ...data } = user;
-    const orderLimit: UserOrderDTO[] = data.orders.map(order => {
-      const {updateUser, isAdmin, createUser, password, orders, ...extra} = order.user
-      return extra
-    })
-    const userEdit: UserDTOResponse3 = {...data, orders: orderLimit};
+    const orderLimit: UserOrderDTO[] = data.orders.map((order) => {
+      const { updateUser, isAdmin, createUser, password, orders, ...extra } =
+        order.user;
+      return extra;
+    });
+    const userEdit: UserDTOResponse3 = { ...data, orders: orderLimit };
     return userEdit;
   }
 

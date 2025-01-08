@@ -1,14 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsNotEmpty
-} from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 import { UserDataDTO } from 'src/Users/DTOs/Users.DTOs';
 
 class LoginDTO {
   @IsNotEmpty({ message: 'El campo email no debe estar vacío.' })
   @ApiProperty({
-    description: 'Correo electrónico del usuario. Debe ser una dirección válida en formato estándar.',
+    description:
+      'Correo electrónico del usuario. Debe ser una dirección válida en formato estándar.',
     example: 'example.123@gmail.com',
   })
   email: string;
@@ -30,7 +29,4 @@ class AuthResponseDTO {
   token: string;
 }
 
-export {
-  AuthResponseDTO,
-  LoginDTO,
-}
+export { AuthResponseDTO, LoginDTO };
