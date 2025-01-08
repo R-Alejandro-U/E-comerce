@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ProductDTO, ProductUpdateDto } from './DTOs/ProductDTO';
 import { Repository } from 'typeorm';
@@ -16,7 +17,7 @@ export class ProductsRepository {
 
   async getProducts(): Promise<Product[]> {
     try {
-      return await this.productRepository.find();
+      return await this.productRepository.find({relations: ['category']});
     } catch (error) {
       throw error;
     }
@@ -67,9 +68,11 @@ export class ProductsRepository {
   async editProduct(id: string, product: ProductUpdateDto): Promise<Product> {
     try {
       const oldProduct: Product = await this.getProductById(id);
+      const category: Category | null = await this.CategoryRepository.findOneBy({name: product.category});
       const updateProduct: Product = {
         ...oldProduct,
         ...product,
+        category: category ?? oldProduct.category,
       };
       await this.productRepository.save(updateProduct);
       return updateProduct;

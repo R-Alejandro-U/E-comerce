@@ -141,9 +141,9 @@ class ProductUpdateDto {
   @ApiProperty({
     description:
       'Categoría asociada al producto. Debe ser el identificador único de la categoría.',
-    example: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+    example: 'Ropa',
   })
-  category?: Category;
+  category?: string;
 }
 
 export { ProductDTO, ProductDTOResponse, ProductUpdateDto };
