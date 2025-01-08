@@ -45,9 +45,6 @@ export class AuthsController {
   })
   @ApiBearerAuth()
   async AssignAdmin(@Param('id', ParseUUIDPipe) id: string, @Body() data: AssignAdminDTO) : Promise<string> {
-
-    console.log("pepe");
-    
     return await this.authsService.AssignAdmin(id, data)
   }
 }

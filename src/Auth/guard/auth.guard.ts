@@ -27,9 +27,6 @@ export class AuthGuard implements CanActivate {
     const req = context.switchToHttp().getRequest();
     const authHeader = req.headers['authorization'];
 
-    console.log(authHeader);
-    
-
     if (!authHeader) return false;
     if (!authHeader.startsWith('Bearer '))
       throw new UnauthorizedException('Formato de autorización inválido.');
