@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -97,6 +98,7 @@ export class ProductController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() product: ProductUpdateDto,
   ): Promise<Product> {
+    if(!Object.keys(product).length) throw new BadRequestException('Debe haber al menos una propiedad para poder editar al usuario.')
     return this.productService.editProduct(id, product);
   }
 }

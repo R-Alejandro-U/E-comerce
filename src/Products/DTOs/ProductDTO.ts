@@ -103,6 +103,7 @@ class ProductDTOResponse {
 }
 
 class ProductUpdateDto {
+  @ValidateIf((obj) => obj.description !== undefined)
   @IsString({ message: 'El nombre debe ser una cadena de texto.' })
   @MaxLength(50, { message: 'El nombre no debe exceder los 50 caracteres.' })
   @ApiProperty({

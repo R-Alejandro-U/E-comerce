@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -87,6 +88,7 @@ export class UserController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() user: Partial<UserUpdateDTO>,
   ): Promise<string> {
+    if(!Object.keys(user).length) throw new BadRequestException('Debe haber al menos una propiedad para poder editar al usuario.')
     return this.usersService.editUser(id, user);
   }
 }
