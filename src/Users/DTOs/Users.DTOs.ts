@@ -550,8 +550,7 @@ class UserUpdateDTO {
   })
   city?: string;
 
-  @ValidateIf((obj) => obj.isAdmin !== undefined)
-  @IsBoolean({ message: 'El valor de administrador debe ser un booleano.' })
+  @IsEmpty({ message: 'El valor de administrador no debe ser recibido por solicitud.' })
   @ApiProperty({
     description:
       'Indica si el usuario tiene permisos de administrador. Campo editable solo con los roles de administrador.',

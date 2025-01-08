@@ -12,9 +12,9 @@ import {
   MaxLength,
   Max,
   ValidateIf,
+  IsEmpty,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Category } from 'src/Categories/Category.entity';
 
 class ProductDTO {
   @ApiProperty({
@@ -103,6 +103,11 @@ class ProductDTOResponse {
 }
 
 class ProductUpdateDto {
+
+  @IsEmpty({message: 'No se puede modificar el id del producto.'})
+  @ApiProperty({description: 'El id del producto no sera recibido por solicitud.'})
+  id?: string;
+
   @ValidateIf((obj) => obj.description !== undefined)
   @IsString({ message: 'El nombre debe ser una cadena de texto.' })
   @MaxLength(50, { message: 'El nombre no debe exceder los 50 caracteres.' })

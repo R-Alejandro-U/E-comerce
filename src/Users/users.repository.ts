@@ -116,9 +116,7 @@ export class UsersRepository {
       const oldUser: User | null = await this.userRepository.findOneBy({ id });
       if (!oldUser)
         throw new BadRequestException('Hubo un error al encontrar al usuario.');
-      const userMain: User | null = await this.userRepository.findOneBy({
-        name: main.name,
-      });
+      const userMain: User | null = await this.getIdByEmail(main.email);
       if (oldUser.id === userMain?.id)
         throw new BadRequestException(
           'El usuario precargado main no puede ser modificado.',
