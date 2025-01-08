@@ -401,6 +401,58 @@ class UserDTOResponse3 {
   orders?: UserOrderDTO[];
 }
 
+class UserDTOResponse4 {
+  @ApiProperty({
+    description: 'Identificador único del usuario.',
+    example: 'c1f3421a-4f57-11ed-b878-0242ac120002',
+  })
+  id: string;
+
+  @ApiProperty({
+    description: 'Correo electrónico del usuario. Debe ser único.',
+    example: 'user@example.com',
+  })
+  email: string;
+
+  @ApiProperty({
+    description: 'Nombre completo del usuario.',
+    example: 'Juan Pérez',
+  })
+  name: string;
+
+  @ApiProperty({
+    description: 'Dirección del usuario.',
+    example: 'Calle Falsa 123, Piso 4, Departamento B.',
+  })
+  address: string;
+
+  @ApiProperty({
+    description: 'Número de teléfono del usuario.',
+    example: '+1 555-123-4567',
+  })
+  phone: string;
+
+  @ApiProperty({
+    description: 'País de residencia del usuario. Campo opcional.',
+    example: 'México',
+    required: false,
+  })
+  country?: string;
+
+  @ApiProperty({
+    description: 'Ciudad de residencia del usuario. Campo opcional.',
+    example: 'Ciudad de México',
+    required: false,
+  })
+  city?: string;
+
+  @ApiProperty({
+    description: 'Lista de Ordenes del usuario.',
+    type: [Order],
+  })
+  orders?: Order[];
+}
+
 class DataPage {
   @ApiProperty({
     description: 'Número total de elementos disponibles.',
@@ -578,6 +630,7 @@ export {
   UserDTOResponse,
   UserDTOResponse2,
   UserDTOResponse3,
+  UserDTOResponse4,
   GetUserDTOResponse,
   DataPage,
   CreateUserDTO,

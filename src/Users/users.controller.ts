@@ -17,6 +17,7 @@ import { UsersService } from './users.service';
 import {
   GetUserDTOResponse,
   UserDTOResponse3,
+  UserDTOResponse4,
   UserUpdateDTO,
 } from './DTOs/Users.DTOs';
 import { Roles } from 'src/decorators/role.decorator';
@@ -56,7 +57,9 @@ export class UserController {
   @ApiBearerAuth()
   async getUserById(
     @Param('id', ParseUUIDPipe) id: string,
-  ): Promise<UserDTOResponse3> {
+  ): Promise<UserDTOResponse4> {
+    console.log(id);
+    
     return this.usersService.getUserById(id);
   }
 

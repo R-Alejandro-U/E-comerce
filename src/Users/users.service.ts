@@ -7,8 +7,7 @@ import {
   GetUserDTOResponse,
   UserDTOResponse,
   UserDTOResponse2,
-  UserDTOResponse3,
-  UserOrderDTO,
+  UserDTOResponse4,
   UserUpdateDTO,
 } from './DTOs/Users.DTOs';
 import { User } from './User.entity';
@@ -51,16 +50,12 @@ export class UsersService {
     };
   }
 
-  async getUserById(id: string): Promise<UserDTOResponse3> {
+  async getUserById(id: string): Promise<UserDTOResponse4> {
     const user: User = await this.usersRepository.getUserById(id);
+    console.log("user", user);
     const { password, isAdmin, createUser, updateUser, ...data } = user;
-    const orderLimit: UserOrderDTO[] = data.orders.map((order) => {
-      const { updateUser, isAdmin, createUser, password, orders, ...extra } =
-        order.user;
-      return extra;
-    });
-    const userEdit: UserDTOResponse3 = { ...data, orders: orderLimit };
-    return userEdit;
+    console.log("data", data);
+    return data;
   }
 
   async deleteUser(id: string): Promise<string> {
