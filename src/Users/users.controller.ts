@@ -73,7 +73,7 @@ async deleteUser(@Param('id', ParseUUIDPipe) id: string): Promise<string> {
 @Put(':id')
 @ApiOperation({
   summary: 'Editar usuario por ID',
-  description: 'Este endpoint permite editar los detalles de un usuario específico utilizando su ID. El ID debe ser un UUID válido y el cuerpo de la solicitud debe contener los datos actualizados del usuario. Este campo tambien permite otorgarle a otro usuario, el rol de administrador, solo si el usuario que hace la petición es un usuario administrador.Es decir, un aministrador puede volver a otro usuario administrador, más no un usuario puedo darse el rol a si mismo de administrador.',
+  description: 'Este endpoint permite editar los detalles de un usuario específico utilizando su ID. El ID debe ser un UUID válido y el cuerpo de la solicitud debe contener los datos actualizados del usuario.',
 })
 @ApiResponse({
   type: IdDTO,
@@ -81,7 +81,7 @@ async deleteUser(@Param('id', ParseUUIDPipe) id: string): Promise<string> {
 @ApiBearerAuth()
 async editUser(
   @Param('id', ParseUUIDPipe) id: string,
-  @Body() user: UserUpdateDTO,
+  @Body() user: Partial<UserUpdateDTO>,
 ): Promise<string> {
   return this.usersService.editUser(id, user);
 }

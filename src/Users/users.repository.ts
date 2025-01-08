@@ -101,15 +101,13 @@ export class UsersRepository {
     }
   }
 
-  async editUser(id: string, user: UserUpdateDTO): Promise<string> {
+  async editUser(id: string, user: Partial<UserUpdateDTO>): Promise<string> {
     try {
       const oldUser: User | null = await this.userRepository.findOneBy({id});
       if(!oldUser) throw new BadRequestException('Hubo un error al encontrar al usuario.')
-      if(user.isAdmin && !oldUser.isAdmin) throw new BadRequestException('Solo un administrador puede modificar el estado de administrador.')
       const userMain: User | null = await this.userRepository.findOneBy({name: main.name})
       if(oldUser.id === userMain?.id) throw new BadRequestException('El usuario precargado main no puede ser modificado.')
       if(user.password) user.password = await this.hashPassword(user.password);
-      console.log(user.password);
       const updateUser: Partial<User> = {
         ...oldUser,
         ...user,

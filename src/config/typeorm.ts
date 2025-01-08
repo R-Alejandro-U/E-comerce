@@ -12,7 +12,7 @@ export const AppDataSource = {
   database: dbConfig.database,
   synchronize: dbConfig.synchronize,
   logging: dbConfig.logging,
-  dropSchema: true,
+  dropSchema: dbConfig.dropSchema,
   entities: dbConfig.entities,
   migrations: dbConfig.migration,
 };

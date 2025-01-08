@@ -11,6 +11,7 @@ import {
   MinLength,
   MaxLength,
   Max,
+  ValidateIf,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Category } from 'src/Categories/Category.entity';
@@ -103,6 +104,7 @@ class ProductUpdateDto {
   })
   name?: string;
 
+  @ValidateIf((obj) => obj.description !== undefined)
   @IsString({ message: 'La descripción debe ser una cadena de texto.' })
   @ApiProperty({
     description: 'Descripción detallada del producto.',
@@ -110,6 +112,7 @@ class ProductUpdateDto {
   })
   description?: string;
 
+  @ValidateIf((obj) => obj.price !== undefined)
   @IsNumber({}, { message: 'El precio debe ser un número válido.' })
   @Min(0, { message: 'El precio debe ser mayor o igual a 0.' })
   @ApiProperty({
@@ -118,6 +121,7 @@ class ProductUpdateDto {
   })
   price?: number;
 
+  @ValidateIf((obj) => obj.stock !== undefined)
   @IsNumber({}, { message: 'El stock debe ser un número entero válido.' })
   @Min(0, { message: 'El stock debe ser mayor o igual a 0.' })
   @ApiProperty({
@@ -126,6 +130,7 @@ class ProductUpdateDto {
   })
   stock?: number;
 
+  @ValidateIf((obj) => obj.imgUrl !== undefined)
   @IsUrl({}, { message: 'La URL de la imagen debe ser válida.' })
   @ApiProperty({
     description:
@@ -137,6 +142,7 @@ class ProductUpdateDto {
   })
   imgUrl?: string;
 
+  @ValidateIf((obj) => obj.category !== undefined)
   @IsString({ message: 'La categoría debe ser una referencia válida.' })
   @ApiProperty({
     description:

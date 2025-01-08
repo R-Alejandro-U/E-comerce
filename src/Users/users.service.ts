@@ -60,7 +60,7 @@ export class UsersService {
     return this.usersRepository.deleteUser(id);
   }
 
-  async editUser(id: string, user: UserUpdateDTO): Promise<string> {
+  async editUser(id: string, user: Partial<UserUpdateDTO>): Promise<string> {
     return this.usersRepository.editUser(id, user);
   }
 }

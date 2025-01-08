@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsEmail,
   IsEmpty,
   IsNotEmpty,
@@ -10,6 +11,7 @@ import {
   MaxLength,
   MinLength,
   Validate,
+  ValidateIf,
 } from 'class-validator';
 import { Order } from 'src/Orders/Order.entity';
 import { Confirmation } from 'src/utils/passwordConfimation.pipe';
@@ -399,6 +401,7 @@ class UserUpdateDTO {
   })
   id?: string;
 
+  @ValidateIf((obj) => obj.email !== undefined)
   @IsEmail({}, { message: 'El correo electrónico debe tener un formato válido.' })
   @ApiProperty({
     description: 'Correo electrónico válido del usuario.',
@@ -406,6 +409,7 @@ class UserUpdateDTO {
   })
   email?: string;
 
+  @ValidateIf((obj) => obj.name !== undefined)
   @IsString({ message: 'El nombre debe ser una cadena de texto.' })
   @MinLength(3, { message: 'El nombre debe tener al menos 3 caracteres.' })
   @MaxLength(80, { message: 'El nombre no debe exceder los 80 caracteres.' })
@@ -415,16 +419,10 @@ class UserUpdateDTO {
   })
   name?: string;
 
+  @ValidateIf((obj) => obj.password !== undefined)
   @MaxLength(15, {
     message: 'La contraseña no debe tener más de 15 caracteres.',
   })
-  @IsStrongPassword(
-    { minLength: 8 },
-    {
-      message:
-        'La contraseña debe contener al menos 1 letra mayúscula, 1 letra minúscula, 1 número y 1 carácter especial.',
-    },
-  )
   @ApiProperty({
     description:
       'Contraseña segura, con un mínimo de 8 caracteres y un máximo de 15. Debe incluir al menos 1 mayúscula, 1 minúscula, 1 número y 1 símbolo.',
@@ -432,6 +430,7 @@ class UserUpdateDTO {
   })
   password?: string;
 
+  @ValidateIf((obj) => obj.address !== undefined)
   @IsString({ message: 'La dirección debe ser una cadena de texto.' })
   @MinLength(3, { message: 'La dirección debe tener al menos 3 caracteres.' })
   @MaxLength(80, { message: 'La dirección no debe exceder los 80 caracteres.' })
@@ -441,6 +440,7 @@ class UserUpdateDTO {
   })
   address?: string;
 
+  @ValidateIf((obj) => obj.phone !== undefined)
   @IsPhoneNumber(undefined, {
     message:
       'El número de teléfono debe tener un formato válido, incluyendo el código internacional. Ejemplo: "+541123456789".',
@@ -451,42 +451,43 @@ class UserUpdateDTO {
   })
   phone?: string;
 
+  @ValidateIf((obj) => obj.country !== undefined)
   @IsString({ message: 'El país debe ser una cadena de texto.' })
   @MinLength(5, { message: 'El país debe tener al menos 5 caracteres.' })
   @MaxLength(20, { message: 'El país no debe exceder los 20 caracteres.' })
   @ApiProperty({
-    description:
-      'País de residencia del usuario. Campo opcional con un mínimo de 5 y un máximo de 20 caracteres.',
+    description: 'País de residencia del usuario.',
     example: 'Argentina',
   })
   country?: string;
 
+  @ValidateIf((obj) => obj.city !== undefined)
   @IsString({ message: 'La ciudad debe ser una cadena de texto.' })
   @MinLength(5, { message: 'La ciudad debe tener al menos 5 caracteres.' })
   @MaxLength(20, { message: 'La ciudad no debe exceder los 20 caracteres.' })
   @ApiProperty({
-    description:
-      'Ciudad de residencia del usuario. Campo opcional con un mínimo de 5 y un máximo de 20 caracteres.',
+    description: 'Ciudad de residencia del usuario.',
     example: 'Buenos Aires',
   })
   city?: string;
 
+  @ValidateIf((obj) => obj.isAdmin !== undefined)
+  @IsBoolean({ message: 'El valor de administrador debe ser un booleano.' })
   @ApiProperty({
     description:
-      'Indica si el usuario tiene permisos de administrador. Campo editable solo con los roles de administrador, por defecto es falso.',
+      'Indica si el usuario tiene permisos de administrador. Campo editable solo con los roles de administrador.',
     example: false,
     default: false,
-    readOnly: true,
   })
   isAdmin?: boolean;
 
   @IsEmpty({ message: 'No se pueden modificar las ordenes.' })
-  orders: Order[];
+  orders?: Order[];
 
   @IsEmpty({ message: 'No se puede modificar la fecha de creación del usuario.' })
   createUser?: Date;
 
-  @IsEmpty({ message: 'No se puede modificar la ultima vez que se modifico un usuario.' })
+  @IsEmpty({ message: 'No se puede modificar la última vez que se modificó un usuario.' })
   updateUser?: Date;
 }
 
