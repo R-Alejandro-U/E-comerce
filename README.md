@@ -1,3 +1,100 @@
+# E-Commerce API en NestJS
+
+## Descripción
+Esta es una API básica de comercio electrónico desarrollada en [NestJS](w) como parte de una especialización. Proporciona un sistema robusto para la gestión de usuarios, productos, órdenes y autenticación segura mediante [JWT](w). La aplicación está completamente contenerizada con [Docker](w) y lista para su despliegue.
+
+## Características principales
+- **Autenticación y autorización**: Uso de [JWT](w) y [bcrypt](w) para la seguridad, con guardianes que protegen rutas basadas en roles (administrador y usuario).
+- **Base de datos**: Implementación con [PostgreSQL](w) usando [TypeORM](w).
+- **Seeder inicial**: Precarga de productos, categorías y un usuario administrador inmutable al iniciar la base de datos.
+- **Validación y documentación**: Uso de [DTOs](w) personalizados con [class-validator](w) y [class-transformer](w), integrados con [Swagger](w) para documentación automática.
+- **Carga de imágenes**: Integración con [Cloudinary](w) para subir imágenes de productos.
+- **Contenerización**: Uso de [Docker](w) para empaquetar la aplicación y facilitar el despliegue.
+- **Sistema de pedidos**: Creación y gestión de órdenes con validación de stock y asociación al usuario correspondiente.
+- **Protección de rutas**: Guardianes en [NestJS](w) que restringen acceso a rutas específicas según el rol del usuario.
+
+## Tecnologías utilizadas
+### Backend
+- [NestJS](w) (Framework principal)
+- [TypeORM](w) (ORM para PostgreSQL)
+- [PostgreSQL](w) (Base de datos relacional)
+- [JWT](w) (Autenticación)
+- [Bcrypt](w) (Encriptación de contraseñas)
+- [Swagger](w) (Documentación de API)
+- [Cloudinary](w) (Almacenamiento de imágenes)
+- [Multer](w) (Carga de archivos)
+- [SendGrid](w) (Envío de correos electrónicos)
+- [RxJS](w) (Programación reactiva)
+
+### Contenerización y despliegue
+- [Docker](w) (Para contenerizar la aplicación)
+- [Dotenv](w) (Manejo de variables de entorno)
+
+### Desarrollo y testing
+- [TypeScript](w) (Lenguaje principal)
+- [Jest](w) (Testing unitario)
+- [Supertest](w) (Testing de integración)
+- [ESLint](w) y [Prettier](w) (Estilo de código y linting)
+
+## Endpoints principales
+### **Auth**
+- Registro de usuario
+- Inicio de sesión
+- Protección de rutas con guardianes
+
+### **Ordenes**
+- Crear orden asociada a un usuario y manejar el stock
+- Obtener orden por ID
+
+### **Categorías**
+- Listar todas las categorías
+- Buscar categoría por ID
+- Crear una nueva categoría
+
+### **Productos**
+- Listar todos los productos
+- Buscar producto por ID
+- Crear, editar y eliminar productos (solo administradores)
+
+### **Usuarios**
+- Obtener información de usuario
+- Obtener lista de usuarios (solo administradores)
+
+## Instalación y ejecución
+```sh
+# Clonar el repositorio
+git clone <repositorio>
+cd <directorio>
+
+# Instalar dependencias
+yarn install  # o npm install
+
+# Configurar variables de entorno
+cp .env.example .env
+
+# Ejecutar la aplicación en desarrollo
+yarn start:dev
+
+# O ejecutar con Docker
+docker-compose up
+```
+
+## Contacto
+Para más información o colaboración, puedes contactarme a través de [GitHub](w) o correo electrónico.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
